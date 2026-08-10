@@ -1,7 +1,10 @@
 const Todo = require("../Models/Todo");
 
+
+// ADD TODO
 const addTodo = async (req, res) => {
     try {
+
         const { title } = req.body;
 
         const todo = await Todo.create({
@@ -14,10 +17,12 @@ const addTodo = async (req, res) => {
         });
 
     } catch (error) {
+
         res.status(500).json({
             message: "Failed to add todo",
             error: error.message
         });
+
     }
 };
 
@@ -44,7 +49,39 @@ const getTodos = async (req, res) => {
 };
 
 
+// DELETE TODO
+const deleteTodo = async (req, res) => {
+    try {
+
+        const { id } = req.params;
+
+        const todo = await Todo.findByIdAndDelete(id);
+
+        if (!todo) {
+            return res.status(404).json({
+                message: "Todo not found"
+            });
+        }
+
+        res.status(200).json({
+            message: "Todo deleted successfully",
+            todo: todo
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            message: "Failed to delete todo",
+            error: error.message
+        });
+
+    }
+};
+
+
+// EXPORT
 module.exports = {
     addTodo,
-    getTodos
+    getTodos,
+    deleteTodo
 };
