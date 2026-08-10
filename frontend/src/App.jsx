@@ -2,14 +2,12 @@ import { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
-
   const [title, setTitle] = useState("");
   const [todos, setTodos] = useState([]);
 
   // GET TODOS
   const getTodos = async () => {
     try {
-
       const response = await fetch(
         "http://localhost:5000/api/todos"
       );
@@ -21,25 +19,19 @@ function App() {
       } else {
         console.log(data.message);
       }
-
     } catch (error) {
-
       console.log("Failed to fetch todos:", error);
-
     }
   };
 
-
   // ADD TODO
   const addTodo = async () => {
-
     if (!title.trim()) {
       alert("Please enter a todo");
       return;
     }
 
     try {
-
       const response = await fetch(
         "http://localhost:5000/api/todos",
         {
@@ -58,34 +50,24 @@ function App() {
       const data = await response.json();
 
       if (response.ok) {
-
         alert("Todo added successfully");
 
         setTitle("");
 
         getTodos();
-
       } else {
-
         alert(data.message || "Failed to add todo");
-
       }
-
     } catch (error) {
-
       console.log("Add todo error:", error);
-
       alert("Failed to add todo");
-
     }
   };
-
 
   // GET TODOS WHEN PAGE LOADS
   useEffect(() => {
     getTodos();
   }, []);
-
 
   return (
     <div className="app">
@@ -93,7 +75,6 @@ function App() {
       <div className="todo-container">
 
         <h1>Todo App</h1>
-
 
         {/* INPUT */}
 
@@ -122,11 +103,8 @@ function App() {
           <div className="table-header">
 
             <span>#</span>
-
             <span>Todo</span>
-
             <span>Status</span>
-
             <span>Action</span>
 
           </div>
@@ -144,7 +122,10 @@ function App() {
 
             todos.map((todo, index) => (
 
-              <div className="table-row" key={todo._id}>
+              <div
+                className="table-row"
+                key={todo._id}
+              >
 
                 <span>
                   {index + 1}
