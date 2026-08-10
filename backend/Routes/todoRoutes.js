@@ -6,20 +6,24 @@ const {
     addTodo,
     getTodos,
     deleteTodo,
-    updateTodo,
-    completeTodo
+    updateTodo
 } = require("../Controllers/todoController");
 
 
+// ADD TODO
 router.post("/todos", addTodo);
 
+
+// GET ALL TODOS
 router.get("/todos", getTodos);
 
+
+// DELETE TODO
 router.delete("/todos/:id", deleteTodo);
 
-router.put("/todos/:id", updateTodo);
 
-router.patch("/todos/:id/complete", completeTodo);
+// UPDATE TODO
+router.put("/todos/:id", updateTodo);
 
 
 module.exports = router;
