@@ -1,74 +1,442 @@
-.app {
-  min-height: 100vh;
-  padding: 60px 20px;
-  background: #f4f4f4;
+/* ============================= */
+/* GLOBAL */
+/* ============================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+body {
+  font-family: Inter, Arial, sans-serif;
+  background: #f1f1f1;
+  color: #171717;
+}
+
+
+/* ============================= */
+/* MAIN APP */
+/* ============================= */
+
+.app {
+  min-height: 100vh;
+  padding: 70px 20px;
+  background:
+    radial-gradient(circle at top left, #ffffff 0%, transparent 35%),
+    radial-gradient(circle at bottom right, #e5e5e5 0%, transparent 35%),
+    #f1f1f1;
+}
+
+
+/* ============================= */
+/* TODO CONTAINER */
+/* ============================= */
+
 .todo-container {
-  max-width: 900px;
+  width: 100%;
+  max-width: 1050px;
   margin: auto;
 }
 
+
+/* ============================= */
+/* HEADING */
+/* ============================= */
+
 .todo-container h1 {
   text-align: center;
-  margin-bottom: 35px;
-  font-size: 38px;
-  color: #111;
+  font-size: 46px;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  margin-bottom: 45px;
+  color: #111111;
 }
+
+
+/* ============================= */
+/* INPUT SECTION */
+/* ============================= */
 
 .todo-input {
   display: flex;
-  gap: 12px;
-  margin-bottom: 30px;
+  gap: 14px;
+  padding: 12px;
+
+  background: rgba(255, 255, 255, 0.85);
+
+  border: 1px solid #dedede;
+  border-radius: 16px;
+
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.08);
+
+  margin-bottom: 35px;
 }
+
+
+/* INPUT */
 
 .todo-input input {
   flex: 1;
-  padding: 14px 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 16px;
-  outline: none;
-  background: white;
+
+  height: 54px;
+
+  padding: 0 18px;
+
+  border: 1px solid #d5d5d5;
+  border-radius: 11px;
+
+  background: #fafafa;
+
   color: #111;
+
+  font-size: 16px;
+
+  outline: none;
+
+  transition: 0.25s;
+}
+
+.todo-input input::placeholder {
+  color: #999;
 }
 
 .todo-input input:focus {
   border-color: #111;
+  background: white;
+
+  box-shadow:
+    0 0 0 3px rgba(0, 0, 0, 0.06);
 }
 
+
+/* ADD BUTTON */
+
 .todo-input button {
-  padding: 14px 24px;
+  height: 54px;
+
+  padding: 0 28px;
+
   border: none;
-  border-radius: 8px;
-  background: #111;
+  border-radius: 11px;
+
+  background: #ff7a00;
   color: white;
+
   font-size: 15px;
+  font-weight: 700;
+
   cursor: pointer;
+
+  transition: 0.25s;
+
+  box-shadow:
+    0 8px 18px rgba(255, 122, 0, 0.25);
 }
 
 .todo-input button:hover {
-  background: #333;
+  background: #e86600;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 24px rgba(255, 122, 0, 0.32);
 }
 
-.todo-table {
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  overflow: hidden;
+.todo-input button:active {
+  transform: translateY(0);
 }
+
+
+/* ============================= */
+/* TODO TABLE */
+/* ============================= */
+
+.todo-table {
+  width: 100%;
+
+  background: white;
+
+  border: 1px solid #dedede;
+
+  border-radius: 16px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ============================= */
+/* TABLE HEADER */
+/* ============================= */
 
 .table-header {
   display: grid;
-  grid-template-columns: 70px 1fr 150px 150px;
-  padding: 18px;
-  background: #111;
+
+  grid-template-columns:
+    70px
+    minmax(200px, 1fr)
+    160px
+    190px;
+
+  align-items: center;
+
+  padding: 20px 22px;
+
+  background: #171717;
+
   color: white;
-  font-weight: bold;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.5px;
 }
+
+
+/* ============================= */
+/* TABLE ROW */
+/* ============================= */
+
+.table-row {
+  display: grid;
+
+  grid-template-columns:
+    70px
+    minmax(200px, 1fr)
+    160px
+    190px;
+
+  align-items: center;
+
+  padding: 20px 22px;
+
+  border-top: 1px solid #eeeeee;
+
+  background: white;
+
+  transition: 0.2s;
+}
+
+.table-row:hover {
+  background: #fafafa;
+
+  transform: scale(1.002);
+}
+
+
+/* TODO NUMBER */
+
+.table-row > span:first-child {
+  font-weight: 700;
+  color: #888;
+}
+
+
+/* TODO TITLE */
+
+.table-row > span:nth-child(2) {
+  font-size: 16px;
+  font-weight: 600;
+
+  color: #222;
+
+  word-break: break-word;
+}
+
+
+/* STATUS */
+
+.table-row > span:nth-child(3) {
+  font-size: 14px;
+
+  font-weight: 600;
+
+  color: #555;
+}
+
+
+/* ============================= */
+/* ACTION BUTTONS */
+/* ============================= */
+
+.action-buttons {
+  display: flex;
+
+  gap: 8px;
+
+  align-items: center;
+}
+
+
+/* ALL ACTION BUTTONS */
+
+.action-buttons button {
+  border: none;
+
+  padding: 9px 15px;
+
+  border-radius: 8px;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+
+/* EDIT */
+
+.edit-btn {
+  background: #eeeeee;
+
+  color: #222;
+}
+
+.edit-btn:hover {
+  background: #dddddd;
+
+  transform: translateY(-1px);
+}
+
+
+/* SAVE */
+
+.save-btn {
+  background: #171717;
+
+  color: white;
+}
+
+.save-btn:hover {
+  background: #333;
+
+  transform: translateY(-1px);
+}
+
+
+/* DELETE */
+
+.delete-btn {
+  background: #ffe4e4;
+
+  color: #d40000;
+}
+
+.delete-btn:hover {
+  background: #ffcccc;
+
+  transform: translateY(-1px);
+}
+
+
+/* CANCEL */
+
+.cancel-btn {
+  background: #f2f2f2;
+
+  color: #555;
+}
+
+.cancel-btn:hover {
+  background: #dedede;
+}
+
+
+/* ============================= */
+/* EDIT INPUT */
+/* ============================= */
+
+.table-row input {
+  width: 100%;
+
+  height: 40px;
+
+  padding: 0 12px;
+
+  border: 1px solid #ccc;
+
+  border-radius: 7px;
+
+  outline: none;
+
+  font-size: 14px;
+
+  color: #111;
+
+  background: #fafafa;
+}
+
+.table-row input:focus {
+  border-color: #111;
+
+  background: white;
+
+  box-shadow:
+    0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+
+/* ============================= */
+/* EMPTY MESSAGE */
+/* ============================= */
 
 .empty-message {
   text-align: center;
-  padding: 40px;
-  color: #777;
+
+  padding: 65px 20px;
+
+  color: #888;
+
+  font-size: 15px;
+}
+
+
+/* ============================= */
+/* MOBILE */
+/* ============================= */
+
+@media (max-width: 700px) {
+
+  .app {
+    padding: 40px 12px;
+  }
+
+  .todo-container h1 {
+    font-size: 34px;
+
+    margin-bottom: 30px;
+  }
+
+  .todo-input {
+    flex-direction: column;
+
+    padding: 10px;
+  }
+
+  .todo-input button {
+    width: 100%;
+  }
+
+  .todo-table {
+    overflow-x: auto;
+  }
+
+  .table-header,
+  .table-row {
+    min-width: 700px;
+
+    grid-template-columns:
+      50px
+      1fr
+      120px
+      180px;
+  }
 }
