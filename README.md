@@ -7,7 +7,7 @@ A full-stack Todo application built with **React (Vite)**, **Node.js**,
 
 **Frontend:** https://learning-git-git-main-gaurav9084.vercel.app/
 
-**Backend:** https://learning-git-qavw.onrender.com
+**GitHub:** https://github.com/gaurav908408/learning-git
 
 ## ✨ Features
 
