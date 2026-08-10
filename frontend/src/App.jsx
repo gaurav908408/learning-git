@@ -5,6 +5,10 @@ function App() {
   const [title, setTitle] = useState("");
   const [todos, setTodos] = useState([]);
 
+  // EDIT STATES
+  const [editId, setEditId] = useState(null);
+  const [editTitle, setEditTitle] = useState("");
+
   // GET TODOS
   const getTodos = async () => {
     try {
@@ -61,6 +65,47 @@ function App() {
     } catch (error) {
       console.log("Add todo error:", error);
       alert("Failed to add todo");
+    }
+  };
+
+  // UPDATE TODO
+  const editTodo = async (id) => {
+    if (!editTitle.trim()) {
+      alert("Please enter a todo");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/todos/${id}`,
+        {
+          method: "PUT",
+
+          headers: {
+            "Content-Type": "application/json"
+          },
+
+          body: JSON.stringify({
+            title: editTitle
+          })
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Todo updated successfully");
+
+        setEditId(null);
+        setEditTitle("");
+
+        getTodos();
+      } else {
+        alert(data.message || "Failed to update todo");
+      }
+    } catch (error) {
+      console.log("Update todo error:", error);
+      alert("Failed to update todo");
     }
   };
 
@@ -127,13 +172,37 @@ function App() {
                 key={todo._id}
               >
 
+                {/* NUMBER */}
+
                 <span>
                   {index + 1}
                 </span>
 
+
+                {/* TODO TITLE */}
+
                 <span>
-                  {todo.title}
+
+                  {editId === todo._id ? (
+
+                    <input
+                      type="text"
+                      value={editTitle}
+                      onChange={(e) =>
+                        setEditTitle(e.target.value)
+                      }
+                    />
+
+                  ) : (
+
+                    todo.title
+
+                  )}
+
                 </span>
+
+
+                {/* STATUS */}
 
                 <span>
                   {todo.completed
@@ -142,8 +211,36 @@ function App() {
                   }
                 </span>
 
-                <span>
-                  Action
+
+                {/* ACTION */}
+
+                <span className="action-buttons">
+
+                  {editId === todo._id ? (
+
+                    <button
+                      className="save-btn"
+                      onClick={() =>
+                        editTodo(todo._id)
+                      }
+                    >
+                      Save
+                    </button>
+
+                  ) : (
+
+                    <button
+                      className="edit-btn"
+                      onClick={() => {
+                        setEditId(todo._id);
+                        setEditTitle(todo.title);
+                      }}
+                    >
+                      Edit
+                    </button>
+
+                  )}
+
                 </span>
 
               </div>
