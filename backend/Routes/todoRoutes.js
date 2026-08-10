@@ -6,7 +6,8 @@ const {
     addTodo,
     getTodos,
     deleteTodo,
-    updateTodo
+    updateTodo,
+    completeTodo
 } = require("../Controllers/todoController");
 
 
@@ -17,6 +18,8 @@ router.get("/todos", getTodos);
 router.delete("/todos/:id", deleteTodo);
 
 router.put("/todos/:id", updateTodo);
+
+router.patch("/todos/:id/complete", completeTodo);
 
 
 module.exports = router;
