@@ -1,9 +1,15 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+.table-row {
+  display: grid;
+  grid-template-columns: 70px 1fr 150px 150px;
+  padding: 18px;
+  border-top: 1px solid #ddd;
+  align-items: center;
 }
 
-body {
-  font-family: Arial, sans-serif;
+.table-row span {
+  color: #222;
+}
+
+.table-row:hover {
+  background: #f7f7f7;
 }
