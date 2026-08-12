@@ -9,11 +9,14 @@ function App() {
   const [editId, setEditId] = useState(null);
   const [editTitle, setEditTitle] = useState("");
 
+  // API BASE URL
+  const API_URL = import.meta.env.VITE_API_URL;
+
   // GET TODOS
   const getTodos = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/todos"
+        `${API_URL}/api/todos`
       );
 
       const data = await response.json();
@@ -37,7 +40,7 @@ function App() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/todos",
+        `${API_URL}/api/todos`,
         {
           method: "POST",
 
@@ -80,7 +83,7 @@ function App() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/todos/${id}`,
+        `${API_URL}/api/todos/${id}`,
         {
           method: "DELETE"
         }
@@ -116,7 +119,7 @@ function App() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/todos/${id}`,
+        `${API_URL}/api/todos/${id}`,
         {
           method: "PUT",
 
@@ -160,139 +163,163 @@ function App() {
   }, []);
 
   return (
-    <div className="todo-container">
+    <div className="app">
 
-      <h1>Todo App</h1>
+      <div className="todo-container">
 
-      {/* INPUT */}
-      <div className="todo-input">
+        <h1>Todo App</h1>
 
-        <input
-          type="text"
-          placeholder="Enter your todo..."
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+        {/* INPUT */}
 
-        <button onClick={addTodo}>
-          Add Todo
-        </button>
+        <div className="todo-input">
 
-      </div>
+          <input
+            type="text"
+            placeholder="Enter your todo..."
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
 
-      {/* TODO TABLE */}
-      <div className="todo-table">
-
-        {/* HEADER */}
-        <div className="table-header">
-
-          <span>#</span>
-          <span>Todo</span>
-          <span>Status</span>
-          <span>Action</span>
+          <button onClick={addTodo}>
+            Add Todo
+          </button>
 
         </div>
 
-        {/* TODOS */}
-        {todos.length === 0 ? (
 
-          <div className="empty-message">
-            No todos available
+        {/* TODO TABLE */}
+
+        <div className="todo-table">
+
+          {/* HEADER */}
+
+          <div className="table-header">
+
+            <span>S.NO</span>
+
+            <span>Todo</span>
+
+            <span>Status</span>
+
+            <span>Action</span>
+
           </div>
 
-        ) : (
 
-          todos.map((todo, index) => (
+          {/* TODOS */}
 
-            <div
-              className="table-row"
-              key={todo._id}
-            >
+          {todos.length === 0 ? (
 
-              {/* NUMBER */}
-              <span>
-                {index + 1}
-              </span>
-
-              {/* TODO */}
-              <span>
-
-                {editId === todo._id ? (
-
-                  <input
-                    type="text"
-                    value={editTitle}
-                    onChange={(e) =>
-                      setEditTitle(e.target.value)
-                    }
-                  />
-
-                ) : (
-
-                  todo.title
-
-                )}
-
-              </span>
-
-              {/* STATUS */}
-              <span>
-                {todo.completed
-                  ? "Completed"
-                  : "Pending"
-                }
-              </span>
-
-              {/* ACTION */}
-              <span>
-
-                {editId === todo._id ? (
-
-                  <>
-                    <button
-                      onClick={() =>
-                        updateTodo(todo._id)
-                      }
-                    >
-                      Save
-                    </button>
-
-                    <button
-                      onClick={cancelEdit}
-                    >
-                      Cancel
-                    </button>
-                  </>
-
-                ) : (
-
-                  <>
-                    <button
-                      onClick={() =>
-                        startEdit(todo)
-                      }
-                    >
-                      Edit
-                    </button>
-
-                    <button
-                      onClick={() =>
-                        deleteTodo(todo._id)
-                      }
-                    >
-                      Delete
-                    </button>
-                  </>
-
-                )}
-
-              </span>
-
+            <div className="empty-message">
+              No todos available
             </div>
 
-          ))
+          ) : (
 
-        )}
+            todos.map((todo, index) => (
+
+              <div
+                className="table-row"
+                key={todo._id}
+              >
+
+                {/* NUMBER */}
+
+                <span>
+                  {index + 1}
+                </span>
+
+
+                {/* TODO */}
+
+                <span>
+
+                  {editId === todo._id ? (
+
+                    <input
+                      type="text"
+                      value={editTitle}
+                      onChange={(e) =>
+                        setEditTitle(e.target.value)
+                      }
+                    />
+
+                  ) : (
+
+                    todo.title
+
+                  )}
+
+                </span>
+
+
+                {/* STATUS */}
+
+                <span>
+                  {todo.completed
+                    ? "Completed"
+                    : "Pending"
+                  }
+                </span>
+
+
+                {/* ACTION */}
+
+                <span className="action-buttons">
+
+                  {editId === todo._id ? (
+
+                    <>
+                      <button
+                        className="save-btn"
+                        onClick={() =>
+                          updateTodo(todo._id)
+                        }
+                      >
+                        Save
+                      </button>
+
+                      <button
+                        className="cancel-btn"
+                        onClick={cancelEdit}
+                      >
+                        Cancel
+                      </button>
+                    </>
+
+                  ) : (
+
+                    <>
+                      <button
+                        className="edit-btn"
+                        onClick={() =>
+                          startEdit(todo)
+                        }
+                      >
+                        Edit
+                      </button>
+
+                      <button
+                        className="delete-btn"
+                        onClick={() =>
+                          deleteTodo(todo._id)
+                        }
+                      >
+                        Delete
+                      </button>
+                    </>
+
+                  )}
+
+                </span>
+
+              </div>
+
+            ))
+
+          )}
+
+        </div>
 
       </div>
 
